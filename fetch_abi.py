@@ -5,9 +5,9 @@ import os
 import requests
 
 def fetch_json(chain, address, apikey, out):
-    res = requests.get(f"https://api.etherscan.io/api?module=contract&action=getabi&address={address}&chainid={chain}&apikey={apikey}").json()
+    res = requests.get(f"https://api.etherscan.io/v2/api?module=contract&action=getabi&address={address}&chainid={chain}&apikey={apikey}").json()
     if not res["status"] == "1":
-        raise f"Couldn't fetch ABI for contract {address} from Etherscan"
+        raise Exception(f"Couldn't fetch ABI for contract {address} from Etherscan")
     with open(out, 'w') as f:
         json.dump(json.loads(res["result"]), f, indent=2)
 
